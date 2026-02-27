@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basit Qayoom | Software Engineer</title>
+    
+    <!-- Google Fonts: Roboto & Material Symbols -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <style>
+        /* --- Material Design 3 Variables --- */
+        :root {
+            /* Colors */
+            --md-bg: #F8F9FA; 
+            --md-surface: #FFFFFF;
+            --md-primary: #1A73E8; /* Google Blue */
+            --md-primary-hover: #174EA6;
+            --md-text-primary: #202124;
+            --md-text-secondary: #5F6368;
+            --md-border: #DADCE0;
+            --md-divider: #E8EAED;
+            
+            /* Google Brand Colors for Gradients */
+            --g-blue: #4285F4;
+            --g-red: #EA4335;
+            --g-yellow: #FBBC05;
+            --g-green: #34A853;
+
+            /* Elevation Shadows */
+            --md-elevation-1: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+            --md-elevation-3: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+        }
+
+        /* --- Base Reset & Typography --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--md-bg);
+            color: var(--md-text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--md-text-primary);
+            font-weight: 500;
+        }
+
+        p, li {
+            color: var(--md-text-secondary);
+        }
+
+        a {
+            color: var(--md-primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--md-primary-hover);
+        }
+
+        strong {
+            color: var(--md-text-primary);
+            font-weight: 700;
+        }
+
+        /* --- Layout & Utility Classes --- */
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--md-text-primary);
+            font-weight: 500;
+            letter-spacing: -0.5px;
+        }
+
+        /* Google Gradient Line at the top */
+        .google-top-bar {
+            height: 4px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--g-blue) 25%, var(--g-red) 25% 50%, var(--g-yellow) 50% 75%, var(--g-green) 75%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        /* --- Components --- */
+        
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.75rem;
+            border-radius: 9999px; /* Pill shape */
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--md-primary);
+            color: #FFFFFF;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--md-primary-hover);
+            box-shadow: var(--md-elevation-1);
+            color: #FFFFFF;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--md-primary);
+            border: 1px solid var(--md-border);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(26, 115, 232, 0.04);
+            border-color: var(--md-primary);
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--md-surface);
+            border: 1px solid var(--md-border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--md-elevation-1);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .card:hover {
+            box-shadow: var(--md-elevation-3);
+        }
+
+        /* Chips */
+        .chip-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.4rem 1rem;
+            background-color: var(--md-surface);
+            border: 1px solid var(--md-border);
+            border-radius: 16px; /* Pill shape */
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--md-text-primary);
+            transition: background-color 0.2s ease;
+        }
+
+        .chip:hover {
+            background-color: rgba(60,64,67, 0.04);
+        }
+
+        /* --- Sections --- */
+
+        /* Hero Section */
+        #hero {
+            padding: 8rem 2rem 6rem;
+            text-align: left;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f0fe 100%);
+            border-bottom: 1px solid var(--md-divider);
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 950px;
+            width: 100%;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            margin-bottom: 0.5rem;
+            /* Google Gradient Text */
+            background: linear-gradient(90deg, var(--g-blue), var(--g-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.75rem;
+            color: var(--md-text-primary);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-summary {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            max-width: 850px;
+            color: var(--md-text-secondary);
+        }
+
+        /* Social/Contact Links styling */
+        .social-links-container {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2.5rem;
+            color: var(--md-text-secondary);
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+        }
+
+        .social-links-container a, .social-links-container span.contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--md-text-secondary);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .social-links-container a:hover {
+            color: var(--md-primary);
+        }
+
+        .social-links-container svg {
+            fill: currentColor;
+        }
+
+        /* Custom LeetCode </> icon styling */
+        .leetcode-icon {
+            font-family: monospace;
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -1.5px;
+            line-height: 1;
+            margin-right: 0.1rem;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            margin-left: 1rem;
+            padding-left: 3rem;
+            border-left: 2px solid var(--md-divider);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.65rem; /* Center on border */
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--md-surface);
+            border: 4px solid var(--md-primary);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--md-text-primary);
+        }
+
+        .timeline-company {
+            font-size: 1.1rem;
+            color: var(--md-primary);
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--md-text-secondary);
+            background: rgba(60,64,67, 0.05);
+            padding: 0.3rem 1rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .timeline-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .timeline-list li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.7;
+        }
+
+        .timeline-list li::before {
+            content: "play_arrow";
+            font-family: 'Material Symbols Outlined';
+            position: absolute;
+            left: -0.25rem;
+            top: 1px;
+            color: var(--md-primary);
+            font-size: 1.3rem;
+        }
+
+        /* Grid Layouts for Projects & Awards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Skills Structure */
+        .skill-category {
+            margin-bottom: 2.5rem;
+        }
+        .skill-category-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--md-text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--md-surface);
+            border-top: 1px solid var(--md-divider);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3rem; }
+            .hero-subtitle { font-size: 1.4rem; }
+            .social-links-container { flex-direction: column; gap: 1rem; }
+            .timeline { padding-left: 1.5rem; }
+            .timeline-item::before { left: -2.15rem; width: 16px; height: 16px; }
+            .timeline-header { flex-direction: column; gap: 0.75rem; }
+            .card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Google Brand Top Loading Bar Simulation -->
+    <div class="google-top-bar"></div>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Basit Qayoom</h1>
+            <h2 class="hero-subtitle">Software Engineer — Frontend Infrastructure & Systems</h2>
+            <p class="hero-summary">
+                Platform-oriented Software Engineer with nearly 3 years of experience architecting high-throughput micro-frontend ecosystems and real-time communication systems. Proven track record of spearheading zero-to-one product launches and leading legacy infrastructure migrations that serve millions of daily active users. Deeply focused on web performance engineering, system scalability, and enforcing robust developer productivity tools across distributed teams.
+            </p>
+            
+            <div class="btn-container">
+                <a href="#experience" class="btn btn-primary">
+                    <span class="material-symbols-outlined">terminal</span> View Engineering Work
+                </a>
+                <a href="mailto:basitqayoomchowdhary@gmail.com" class="btn btn-secondary">
+                    <span class="material-symbols-outlined">mail</span> Contact Me
+                </a>
+            </div>
+
+            <!-- Contact & Social Links -->
+            <div class="social-links-container">
+                <span class="contact-item"><span class="material-symbols-outlined">location_on</span> Srinagar J&K 190015</span>
+                <span class="contact-item"><span class="material-symbols-outlined">phone</span> +(91) 9682132612</span>
+                
+                <a href="https://linkedin.com/in/bqc" target="_blank">
+                    <!-- LinkedIn Official SVG Path -->
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                    LinkedIn
+                </a>
+                
+                <a href="https://github.com/basitqayoom" target="_blank">
+                    <!-- GitHub Official SVG Path -->
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.253-.447-1.27.098-2.646 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.376.202 2.394.1 2.646.64.699 1.026 1.591 1.026 2.682 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                    GitHub
+                </a>
+                
+                <a href="https://leetcode.com/u/basitqayoomchowdhary/" target="_blank">
+                    <span class="leetcode-icon">&lt;/&gt;</span>
+                    LeetCode
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        
+        <!-- Experience Section -->
+        <section id="experience" style="margin-bottom: 6rem;">
+            <h2 class="section-title">
+                <span class="material-symbols-outlined">architecture</span> Professional Engineering
+            </h2>
+            
+            <div class="timeline">
+                
+                <!-- Physics Wallah -->
+                <div class="timeline-item card">
+                    <div class="timeline-header">
+                        <div>
+                            <h3 class="timeline-title">Software Engineer (SWE I)</h3>
+                            <div class="timeline-company">Physics Wallah</div>
+                        </div>
+                        <div class="timeline-date">July 2023 - Present</div>
+                    </div>
+                    <ul class="timeline-list">
+                        <li><strong>Architected Real-Time Communication Engine:</strong> Engineered a scalable WebSocket-driven chat and low-latency AV streaming platform integrating Agora SDK, successfully supporting high-concurrency mentorship sessions that unlocked <strong>₹100Cr+ in new business revenue</strong>.</li>
+                        <li><strong>Spearheaded Distributed Systems Migration:</strong> Directed the platform-wide architectural shift of a legacy monolithic iframe-based LMS to a distributed micro-frontend ecosystem, decoupling deployments and guaranteeing robust scalability for <strong>2M+ daily active users</strong>.</li>
+                        <li><strong>Engineered Asset Delivery Pipeline:</strong> Overhauled the frontend build process utilizing Webpack Module Federation, edge caching, and service workers, slashing initial bundle payloads by <strong>83% (12MB to <2MB)</strong> and accelerating Time to Interactive (TTI) from <strong>15s to under 5s</strong>.</li>
+                        <li><strong>Enforced UI State Architecture:</strong> Established a strict Container-Presentational component paradigm across core applications, authoring 25+ highly reusable custom hooks to predictably orchestrate complex monetization state machines and asynchronous data streams.</li>
+                        <li><strong>Scaled Developer Productivity & Tooling:</strong> Designed and deployed an enterprise-grade UI Component Library coupled with internal SDKs (Authentication, Feature Flagging, Telemetry), standardizing integration patterns and significantly reducing cross-team CI/CD friction.</li>
+                        <li><strong>Provisioned Observability Infrastructure:</strong> Deployed a centralized Core Web Vitals telemetry pipeline to capture granular client-side performance metrics, enabling proactive bottleneck resolution, rigorous security auditing, and continuous runtime stability.</li>
+                    </ul>
+                </div>
+
+                <!-- IIT Ropar -->
+                <div class="timeline-item card">
+                    <div class="timeline-header">
+                        <div>
+                            <h3 class="timeline-title">Data & Research Intern</h3>
+                            <div class="timeline-company">Indian Institute of Technology (IIT) Ropar</div>
+                        </div>
+                        <div class="timeline-date">Dec 2021 - Jan 2022</div>
+                    </div>
+                    <ul class="timeline-list">
+                        <li><strong>Workflow Constraint Optimization:</strong> Formulated a data-driven statistical simulation model to identify bottleneck constraints within complex chemical workflows, engineering an aggregate <strong>20% improvement in operational processing efficiency</strong>.</li>
+                        <li><strong>Predictive Resource Allocation:</strong> Devised a utilization-based resource management framework leveraging historical telemetry data, establishing a highly scalable strategy to systematically minimize operating expenditures and improve system lifecycle sustainability.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" style="margin-bottom: 6rem;">
+            <h2 class="section-title">
+                <span class="material-symbols-outlined">build_circle</span> Technical Competencies
+            </h2>
+            
+            <div class="card" style="padding: 2.5rem;">
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Frontend Infrastructure & Architecture</h3>
+                    <div class="chip-group">
+                        <span class="chip">React.js</span>
+                        <span class="chip">Next.js</span>
+                        <span class="chip">Micro-Frontends (Module Federation)</span>
+                        <span class="chip">WebSockets</span>
+                        <span class="chip">Web Performance / Core Web Vitals</span>
+                        <span class="chip">Design Systems</span>
+                        <span class="chip">Storybook</span>
+                        <span class="chip">Tailwind CSS</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Languages & Core Concepts</h3>
+                    <div class="chip-group">
+                        <span class="chip">JavaScript (ES6+)</span>
+                        <span class="chip">TypeScript</span>
+                        <span class="chip">Go</span>
+                        <span class="chip">C++</span>
+                        <span class="chip">Python</span>
+                        <span class="chip">System Design</span>
+                        <span class="chip">Data Structures & Algorithms</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Backend, Data & Cloud Services</h3>
+                    <div class="chip-group">
+                        <span class="chip">Node.js</span>
+                        <span class="chip">Express.js</span>
+                        <span class="chip">RESTful APIs</span>
+                        <span class="chip">MongoDB</span>
+                        <span class="chip">Firebase</span>
+                        <span class="chip">Google Cloud Platform (GCP)</span>
+                    </div>
+                </div>
+
+                <div class="skill-category" style="margin-bottom: 0;">
+                    <h3 class="skill-category-title">Platform Tooling & Observability</h3>
+                    <div class="chip-group">
+                        <span class="chip">Webpack / Vite / Rollup</span>
+                        <span class="chip">ESBuild / RsBuild</span>
+                        <span class="chip">Docker</span>
+                        <span class="chip">CI/CD Automation</span>
+                        <span class="chip">Sentry</span>
+                        <span class="chip">Jest / Mocha</span>
+                        <span class="chip">GitLab / Husky</span>
+                        <span class="chip">Lighthouse</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects & Research Section -->
+        <section id="projects" style="margin-bottom: 6rem;">
+            <h2 class="section-title">
+                <span class="material-symbols-outlined">science</span> Technical Research & Modeling
+            </h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 class="timeline-title" style="margin-bottom: 1rem; color: var(--md-primary);">Membrane Filtration Optimization</h3>
+                    <p>Executed analytical evaluation of wood porosity modifications using large-scale SEM, XRD, FTIR, and TGA datasets. Successfully developed and stress-tested specialized membranes engineered specifically for micro- and ultrafiltration applications under extreme constraints.</p>
+                </div>
+                <div class="card">
+                    <h3 class="timeline-title" style="margin-bottom: 1rem; color: var(--md-primary);">Nanomaterials Publication</h3>
+                    <p>Co-authored extensive research on wood-based nanomaterials. Presented empirical findings and structural methodologies at the global <strong>2023 Nanotechnology for Better Living Conference</strong>, a joint summit by NIT Srinagar, SKUAST, and IIT BHU.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards & Leadership Section -->
+        <section id="awards" style="margin-bottom: 6rem;">
+            <h2 class="section-title">
+                <span class="material-symbols-outlined">workspace_premium</span> Honors & Leadership
+            </h2>
+            <div class="card">
+                <ul class="timeline-list">
+                    <li><strong>Champion of the Quarter & Star Performer (Physics Wallah):</strong> Formally recognized by executive leadership for shipping high-leverage infrastructure solutions and consistently surpassing rigorous delivery metrics.</li>
+                    <li><strong>GATE 2025 Qualifier (Data Science):</strong> Demonstrated top-tier analytical aptitude, validating a robust foundation in advanced algorithms, probability, and machine learning fundamentals.</li>
+                    <li><strong>Best Delegate & Organizer (Model UN):</strong> Orchestrated a 200+ delegate summit. Secured <em>Best Delegate (International Press)</em> honors for executing rigorous research, objective analysis, and diplomatic communication.</li>
+                    <li><strong>Technical Lead, NIT Srinagar:</strong> Directed campus engineering initiatives. Scaled community engagement and accelerated technology adoption through targeted hackathons, architecture workshops, and open-source contributions.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Education Section -->
+        <section id="education">
+            <h2 class="section-title">
+                <span class="material-symbols-outlined">school</span> Academic Background
+            </h2>
+            <div class="card">
+                <div class="timeline-header" style="margin-bottom: 0.5rem;">
+                    <div>
+                        <h3 class="timeline-title">National Institute of Technology Srinagar (NITSRI)</h3>
+                        <div class="timeline-company">Bachelor of Technology, Chemical Engineering</div>
+                    </div>
+                    <div class="timeline-date">2019 – 2023</div>
+                </div>
+                <p style="font-size: 1.1rem;"><strong>CGPA:</strong> <span style="color: var(--md-primary); font-weight: 500;">8.06 / 10</span></p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <h3 style="margin-bottom: 0.5rem; color: var(--md-text-primary); font-size: 1.5rem;">Basit Qayoom</h3>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem;">Software Engineer</p>
+        
+        <div class="social-links-container" style="justify-content: center; margin-bottom: 2rem;">
+            <a href="mailto:basitqayoomchowdhary@gmail.com">
+                <span class="material-symbols-outlined">email</span> basitqayoomchowdhary@gmail.com
+            </a>
+            <span class="contact-item">
+                <span class="material-symbols-outlined">phone</span> +(91) 9682132612
+            </span>
+            
+            <a href="https://linkedin.com/in/bqc" target="_blank">
+                <!-- LinkedIn Official SVG Path -->
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                LinkedIn
+            </a>
+            
+            <a href="https://github.com/basitqayoom" target="_blank">
+                <!-- GitHub Official SVG Path -->
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.253-.447-1.27.098-2.646 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.376.202 2.394.1 2.646.64.699 1.026 1.591 1.026 2.682 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>
+                </svg>
+                GitHub
+            </a>
+            
+            <a href="https://leetcode.com/u/basitqayoomchowdhary/" target="_blank">
+                <span class="leetcode-icon">&lt;/&gt;</span>
+                LeetCode
+            </a>
+        </div>
+        
+        <p style="font-size: 0.85rem; color: var(--md-text-secondary);">&copy; 2026 Basit Qayoom.</p>
+    </footer>
+
+</body>
+</html>

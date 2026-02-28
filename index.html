@@ -52,6 +52,7 @@
             color: var(--md-text-primary);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4 {
@@ -266,7 +267,6 @@
             fill: currentColor;
         }
 
-        /* Custom LeetCode </> icon styling */
         .leetcode-icon {
             font-family: monospace;
             font-weight: 700;
@@ -289,10 +289,11 @@
             margin-bottom: 3rem;
         }
 
+        /* Fixed Alignment for Timeline Dot */
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -3.65rem; /* Center on border */
+            left: calc(-3rem - 11px); /* Perfectly aligns 20px circle to the center of 2px border */
             top: 0;
             width: 20px;
             height: 20px;
@@ -347,13 +348,14 @@
             content: "play_arrow";
             font-family: 'Material Symbols Outlined';
             position: absolute;
-            left: -0.25rem;
-            top: 1px;
+            left: 0;
+            top: 0.2em;
             color: var(--md-primary);
             font-size: 1.3rem;
+            line-height: 1;
         }
 
-        /* Grid Layouts for Projects & Awards */
+        /* Grid Layouts for Projects */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -374,12 +376,207 @@
             font-size: 0.85rem;
         }
 
+        /* --- Coursework Accordion UI --- */
+        .coursework-details {
+            margin-top: 2rem;
+            border-top: 1px solid var(--md-divider);
+            padding-top: 1.5rem;
+        }
+
+        .coursework-details summary {
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1.05rem;
+            color: var(--md-primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            list-style: none;
+            user-select: none;
+            transition: color 0.2s ease;
+        }
+
+        .coursework-details summary:hover {
+            color: var(--md-primary-hover);
+        }
+
+        .coursework-details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .coursework-details summary::before {
+            content: "expand_more";
+            font-family: 'Material Symbols Outlined';
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .coursework-details[open] summary::before {
+            transform: rotate(180deg);
+        }
+
+        .coursework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .semester-block {
+            background-color: var(--md-bg);
+            border: 1px solid var(--md-divider);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .semester-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--md-text-primary);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--md-divider);
+            padding-bottom: 0.5rem;
+        }
+
+        .semester-block ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .semester-block li {
+            font-size: 0.85rem;
+            color: var(--md-text-secondary);
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.4;
+        }
+
+        .course-code {
+            font-weight: 700;
+            color: var(--md-primary);
+            background-color: rgba(26, 115, 232, 0.08);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            min-width: 65px;
+            margin-right: 0.5rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        /* --- Floating Action Button (FAB) --- */
+        .fab-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+        }
+
+        .fab-main {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background-color: var(--md-primary);
+            color: white;
+            border: none;
+            box-shadow: var(--md-elevation-3);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            transition: background-color 0.3s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .fab-main:hover {
+            background-color: var(--md-primary-hover);
+        }
+
+        .fab-main:active {
+            transform: scale(0.92);
+        }
+
+        .fab-main .icon-add {
+            font-size: 32px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .fab-container.active .fab-main .icon-add {
+            transform: rotate(135deg); /* Turns the + into an elegant X */
+        }
+
+        .fab-action {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--md-surface);
+            color: var(--md-primary);
+            box-shadow: var(--md-elevation-1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 8px; /* Centers the 48px button behind the 64px main button */
+            right: 8px;
+            text-decoration: none;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.5) translate(0, 0);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease, background-color 0.2s, color 0.2s;
+            z-index: 1;
+            border: 1px solid var(--md-border);
+        }
+
+        .fab-action svg {
+            fill: currentColor;
+        }
+
+        .fab-action:hover {
+            background-color: var(--md-bg);
+            color: var(--md-primary-hover);
+            box-shadow: var(--md-elevation-3);
+        }
+
+        .fab-container.active .fab-action {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* 1/4 Circular Arc Placement (Radius = 110px) */
+        /* Angles: 90deg, 60deg, 30deg, 0deg relative to top-left quadrant */
+        .fab-container.active .fab-action-1 {
+            transform: scale(1) translate(0px, -110px); /* 90deg: Straight up */
+            transition-delay: 0.15s;
+        }
+        .fab-container.active .fab-action-2 {
+            transform: scale(1) translate(-55px, -95.26px); /* 60deg */
+            transition-delay: 0.1s;
+        }
+        .fab-container.active .fab-action-3 {
+            transform: scale(1) translate(-95.26px, -55px); /* 30deg */
+            transition-delay: 0.05s;
+        }
+        .fab-container.active .fab-action-4 {
+            transform: scale(1) translate(-110px, 0px); /* 0deg: Straight left */
+            transition-delay: 0s;
+        }
+
+        /* Collapse Animation Delays (Reversed) */
+        .fab-container:not(.active) .fab-action-1 { transition-delay: 0s; }
+        .fab-container:not(.active) .fab-action-2 { transition-delay: 0.05s; }
+        .fab-container:not(.active) .fab-action-3 { transition-delay: 0.1s; }
+        .fab-container:not(.active) .fab-action-4 { transition-delay: 0.15s; }
+
         /* Footer */
         footer {
             background-color: var(--md-surface);
             border-top: 1px solid var(--md-divider);
             padding: 4rem 2rem;
             text-align: center;
+            margin-bottom: 2rem; /* So footer content isn't fully covered by FAB */
         }
 
         footer p {
@@ -392,9 +589,14 @@
             .hero-subtitle { font-size: 1.4rem; }
             .social-links-container { flex-direction: column; gap: 1rem; }
             .timeline { padding-left: 1.5rem; }
-            .timeline-item::before { left: -2.15rem; width: 16px; height: 16px; }
+            .timeline-item::before { left: calc(-1.5rem - 9px); width: 16px; height: 16px; } /* Fixed mobile alignment */
             .timeline-header { flex-direction: column; gap: 0.75rem; }
             .card { padding: 1.5rem; }
+            
+            .fab-container {
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -413,11 +615,12 @@
             </p>
             
             <div class="btn-container">
-                <a href="#experience" class="btn btn-primary">
-                    <span class="material-symbols-outlined">terminal</span> View Engineering Work
+                <!-- CV must exist as Basit_Qayoom_CV.pdf in the same folder as index.html -->
+                <a href="Basit_Qayoom_CV.pdf" download="Basit_Qayoom_CV.pdf" type="application/pdf" class="btn btn-primary">
+                    <span class="material-symbols-outlined">download</span> Download CV (PDF)
                 </a>
-                <a href="mailto:basitqayoomchowdhary@gmail.com" class="btn btn-secondary">
-                    <span class="material-symbols-outlined">mail</span> Contact Me
+                <a href="#experience" class="btn btn-secondary">
+                    <span class="material-symbols-outlined">terminal</span> View Engineering Work
                 </a>
             </div>
 
@@ -464,18 +667,17 @@
                 <div class="timeline-item card">
                     <div class="timeline-header">
                         <div>
-                            <h3 class="timeline-title">Software Engineer (SWE I)</h3>
+                            <h3 class="timeline-title">Software Engineer</h3>
                             <div class="timeline-company">Physics Wallah</div>
                         </div>
                         <div class="timeline-date">July 2023 - Present</div>
                     </div>
                     <ul class="timeline-list">
-                        <li><strong>Architected Real-Time Communication Engine:</strong> Engineered a scalable WebSocket-driven chat and low-latency AV streaming platform integrating Agora SDK, successfully supporting high-concurrency mentorship sessions that unlocked <strong>₹100Cr+ in new business revenue</strong>.</li>
-                        <li><strong>Spearheaded Distributed Systems Migration:</strong> Directed the platform-wide architectural shift of a legacy monolithic iframe-based LMS to a distributed micro-frontend ecosystem, decoupling deployments and guaranteeing robust scalability for <strong>2M+ daily active users</strong>.</li>
-                        <li><strong>Engineered Asset Delivery Pipeline:</strong> Overhauled the frontend build process utilizing Webpack Module Federation, edge caching, and service workers, slashing initial bundle payloads by <strong>83% (12MB to <2MB)</strong> and accelerating Time to Interactive (TTI) from <strong>15s to under 5s</strong>.</li>
-                        <li><strong>Enforced UI State Architecture:</strong> Established a strict Container-Presentational component paradigm across core applications, authoring 25+ highly reusable custom hooks to predictably orchestrate complex monetization state machines and asynchronous data streams.</li>
-                        <li><strong>Scaled Developer Productivity & Tooling:</strong> Designed and deployed an enterprise-grade UI Component Library coupled with internal SDKs (Authentication, Feature Flagging, Telemetry), standardizing integration patterns and significantly reducing cross-team CI/CD friction.</li>
-                        <li><strong>Provisioned Observability Infrastructure:</strong> Deployed a centralized Core Web Vitals telemetry pipeline to capture granular client-side performance metrics, enabling proactive bottleneck resolution, rigorous security auditing, and continuous runtime stability.</li>
+                        <li><strong>Real-Time Mentorship Platform:</strong> Owned and led development of a real-time mentorship platform generating over <strong>100 crore INR (~12M USD)</strong> in annual revenue, building WebSocket-based chat and low-latency audio and video communication using Agora. Architected a scalable UI system using a container-presentational pattern with <strong>25+ reusable custom hooks</strong> to reliably manage live sessions, payments, timers, and complex asynchronous UI interactions—including screen sharing, voice notes, file sharing, and monetization workflows.</li>
+                        <li><strong>LMS Micro-Frontend Migration:</strong> Migrated the LMS from a legacy iframe-based system to a micro-frontend architecture using Webpack Module Federation, enabling independent deployments and scalability for approximately <strong>2 million daily active users</strong>, while improving performance by reducing bundle size from <strong>12 MB to under 2 MB</strong> and initial load time from <strong>15s to under 5s</strong> using CDN delivery and service worker caching.</li>
+                        <li><strong>Design System & Component Library:</strong> Designed and delivered a centralized design system and UI component library with multi-theme support, accessibility standards, CSS Modules, and Storybook documentation, reducing duplicated UI effort and improving consistency across multiple product teams.</li>
+                        <li><strong>Web SDKs & Observability:</strong> Architected and maintained in-house web SDKs for authentication, API clients, feature flagging, contextual configuration, and analytics; implemented a Core Web Vitals monitoring and observability pipeline integrated with Sentry to track performance metrics, runtime errors, and user flow regressions.</li>
+                        <li><strong>Engineering Practices & Reliability:</strong> Established standardized frontend engineering practices across repositories—including coding conventions, semantic versioning, review workflows, reusable starter boilerplates, and CI-friendly tooling—and conducted performance and security audits to improve runtime reliability.</li>
                     </ul>
                 </div>
 
@@ -583,10 +785,10 @@
             </h2>
             <div class="card">
                 <ul class="timeline-list">
-                    <li><strong>Champion of the Quarter & Star Performer (Physics Wallah):</strong> Formally recognized by executive leadership for shipping high-leverage infrastructure solutions and consistently surpassing rigorous delivery metrics.</li>
-                    <li><strong>GATE 2025 Qualifier (Data Science):</strong> Demonstrated top-tier analytical aptitude, validating a robust foundation in advanced algorithms, probability, and machine learning fundamentals.</li>
-                    <li><strong>Best Delegate & Organizer (Model UN):</strong> Orchestrated a 200+ delegate summit. Secured <em>Best Delegate (International Press)</em> honors for executing rigorous research, objective analysis, and diplomatic communication.</li>
-                    <li><strong>Technical Lead, NIT Srinagar:</strong> Directed campus engineering initiatives. Scaled community engagement and accelerated technology adoption through targeted hackathons, architecture workshops, and open-source contributions.</li>
+                    <li><strong>Champion of the Quarter and Star Performer, Physics Wallah</strong> — Recognized by executive leadership for delivering high-impact platform and infrastructure solutions and consistently exceeding delivery and reliability expectations.</li>
+                    <li><strong>GATE 2025 Qualified, Data Science</strong> — Demonstrated strong analytical and problem-solving skills with a solid foundation in algorithms, probability, and data analysis.</li>
+                    <li><strong>Best Delegate and Organizer, Model United Nations</strong> — Led and organized a conference with over 200 delegates and received Best Delegate honors in the International Press category for research depth, structured analysis, and communication.</li>
+                    <li><strong>Technical Lead, National Institute of Technology Srinagar</strong> — Led campus engineering initiatives, organized hackathons and technical workshops, and promoted open-source adoption to scale student engagement.</li>
                 </ul>
             </div>
         </section>
@@ -605,6 +807,136 @@
                     <div class="timeline-date">2019 – 2023</div>
                 </div>
                 <p style="font-size: 1.1rem;"><strong>CGPA:</strong> <span style="color: var(--md-primary); font-weight: 500;">8.06 / 10</span></p>
+
+                <!-- Coursework Accordion -->
+                <details class="coursework-details">
+                    <summary>View Academic Coursework & Subjects</summary>
+                    
+                    <div class="coursework-grid">
+                        
+                        <!-- 1st Sem A -->
+                        <div class="semester-block">
+                            <div class="semester-title">1st Semester (Group A)</div>
+                            <ul>
+                                <li><span class="course-code">EEL100</span> Basic Electrical Engineering</li>
+                                <li><span class="course-code">HUL100</span> Basic English & Comm. Skills</li>
+                                <li><span class="course-code">ITL100</span> Computer Programming</li>
+                                <li><span class="course-code">CYL100</span> Engineering Chemistry</li>
+                                <li><span class="course-code">CIP100</span> Engineering Drawing</li>
+                                <li><span class="course-code">MAL100</span> Mathematics I</li>
+                                <li><span class="course-code">ELP100</span> Basic Electrical Engg. Lab</li>
+                                <li><span class="course-code">CYP100</span> Chemistry Laboratory</li>
+                                <li><span class="course-code">ITP100</span> Computer Programming Lab</li>
+                            </ul>
+                        </div>
+
+                        <!-- 1st Sem B -->
+                        <div class="semester-block">
+                            <div class="semester-title">1st Semester (Group B)</div>
+                            <ul>
+                                <li><span class="course-code">MEL100</span> Elements of Mechanical Engg.</li>
+                                <li><span class="course-code">PHL100</span> Engineering Physics</li>
+                                <li><span class="course-code">CIL100</span> Engineering Mechanics</li>
+                                <li><span class="course-code">HUL100</span> Basic English & Comm. Skills</li>
+                                <li><span class="course-code">CYL101</span> Environmental Studies</li>
+                                <li><span class="course-code">MAL100</span> Mathematics I</li>
+                                <li><span class="course-code">HUP100</span> Language Laboratory</li>
+                                <li><span class="course-code">PHP100</span> Physics Laboratory</li>
+                                <li><span class="course-code">WSP100</span> Workshop Practice</li>
+                            </ul>
+                        </div>
+
+                        <!-- 3rd Sem -->
+                        <div class="semester-block">
+                            <div class="semester-title">3rd Semester</div>
+                            <ul>
+                                <li><span class="course-code">CET-201</span> Intro to Chemical Engineering</li>
+                                <li><span class="course-code">CET-202</span> Material and Energy Balance</li>
+                                <li><span class="course-code">CET-203</span> Process Fluid Mechanics</li>
+                                <li><span class="course-code">CET-204</span> Thermodynamics & Chemical Kinetics</li>
+                                <li><span class="course-code">ECT-205</span> Basic Electronics Engineering</li>
+                                <li><span class="course-code">HST-201</span> Ethics & Self Awareness</li>
+                                <li><span class="course-code">MAT-201</span> Chemical Engg. Mathematics-I</li>
+                            </ul>
+                        </div>
+
+                        <!-- 4th Sem -->
+                        <div class="semester-block">
+                            <div class="semester-title">4th Semester</div>
+                            <ul>
+                                <li><span class="course-code">CET-250</span> Chemical Engg. Thermodynamics</li>
+                                <li><span class="course-code">CET-251</span> Heat Transfer</li>
+                                <li><span class="course-code">CET-252</span> Mechanical Operations</li>
+                                <li><span class="course-code">CET-253</span> Material Science & Technology</li>
+                                <li><span class="course-code">CET-254</span> Process Instrumentation</li>
+                                <li><span class="course-code">MAT-250</span> Chemical Engg. Mathematics–II</li>
+                                <li><span class="course-code">CEL-255</span> Fluid Mechanics & Mech Ops Lab</li>
+                                <li><span class="course-code">ECL-256</span> Basic Electronics Engg. Lab</li>
+                            </ul>
+                        </div>
+
+                        <!-- 5th Sem -->
+                        <div class="semester-block">
+                            <div class="semester-title">5th Semester</div>
+                            <ul>
+                                <li><span class="course-code">CET-305</span> Process Equipment Design–I</li>
+                                <li><span class="course-code">CET-306</span> Chemical Reaction Engineering</li>
+                                <li><span class="course-code">CET-307</span> Mass Transfer-I</li>
+                                <li><span class="course-code">CET-308</span> Chemical Technology–I</li>
+                                <li><span class="course-code">HST-309</span> Basic Management Principles</li>
+                                <li><span class="course-code">MAT-310</span> Numerical Methods</li>
+                                <li><span class="course-code">CEL-311</span> Heat Transfer Lab</li>
+                                <li><span class="course-code">CEL-312</span> Computer Simulation Lab</li>
+                            </ul>
+                        </div>
+
+                        <!-- 6th Sem -->
+                        <div class="semester-block">
+                            <div class="semester-title">6th Semester</div>
+                            <ul>
+                                <li><span class="course-code">CET-355</span> Process Equipment Design-II</li>
+                                <li><span class="course-code">CET-356</span> Mass Transfer–II</li>
+                                <li><span class="course-code">CET-357</span> Chemical Technology–II</li>
+                                <li><span class="course-code">CET-358</span> Energy Technology</li>
+                                <li><span class="course-code">CET-359</span> Chemical Process Safety</li>
+                                <li><span class="course-code">CET-360</span> Transport Phenomena</li>
+                                <li><span class="course-code">CEL-361</span> Energy Technology Lab</li>
+                                <li><span class="course-code">CEL-362</span> Thermodynamics & Reaction Lab</li>
+                                <li><span class="course-code">CEI-363</span> Industrial Training & Presentation</li>
+                            </ul>
+                        </div>
+
+                        <!-- 7th Sem -->
+                        <div class="semester-block">
+                            <div class="semester-title">7th Semester</div>
+                            <ul>
+                                <li><span class="course-code">CEP-413</span> Pre-project work</li>
+                                <li><span class="course-code">CES-414</span> Seminar</li>
+                                <li><span class="course-code">CET-415</span> Process Dynamics & Control</li>
+                                <li><span class="course-code">CET-416</span> Process Economics & Plant Design</li>
+                                <li><span class="course-code">CET-417</span> Biochemical Engineering</li>
+                                <li><span class="course-code">CEL-418</span> Process Dynamics & Control Lab</li>
+                                <li><span class="course-code">CEL-419</span> Mass Transfer Lab</li>
+                                <li><span class="course-code">CET-021</span> Computational Fluid Dynamics</li>
+                                <li><span class="course-code">CET-024</span> Process Heat Integration</li>
+                            </ul>
+                        </div>
+
+                        <!-- 8th Sem -->
+                        <div class="semester-block">
+                            <div class="semester-title">8th Semester</div>
+                            <ul>
+                                <li><span class="course-code">CEP-464</span> Project Work</li>
+                                <li><span class="course-code">CET-465</span> Bioresource Technology</li>
+                                <li><span class="course-code">CEL-466</span> Biochemical Engineering Lab</li>
+                                <li><span class="course-code">CET-467</span> Modeling & Simulation of Systems</li>
+                                <li><span class="course-code">CET-468</span> Industrial Pollution Abatement</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </details>
+
             </div>
         </section>
 
@@ -624,7 +956,6 @@
             </span>
             
             <a href="https://linkedin.com/in/bqc" target="_blank">
-                <!-- LinkedIn Official SVG Path -->
                 <svg viewBox="0 0 24 24" width="20" height="20">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
@@ -632,7 +963,6 @@
             </a>
             
             <a href="https://github.com/basitqayoom" target="_blank">
-                <!-- GitHub Official SVG Path -->
                 <svg viewBox="0 0 24 24" width="20" height="20">
                     <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.253-.447-1.27.098-2.646 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.376.202 2.394.1 2.646.64.699 1.026 1.591 1.026 2.682 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>
                 </svg>
@@ -648,5 +978,58 @@
         <p style="font-size: 0.85rem; color: var(--md-text-secondary);">&copy; 2026 Basit Qayoom.</p>
     </footer>
 
+    <!-- Floating Action Button (FAB) -->
+    <div class="fab-container" id="fab-container">
+        
+        <!-- Action 1: Download Resume (90 deg - Straight Up). File: Basit_Qayoom_CV.pdf in repo root -->
+        <a href="Basit_Qayoom_CV.pdf" download="Basit_Qayoom_CV.pdf" type="application/pdf" title="Download Resume" class="fab-action fab-action-1">
+            <span class="material-symbols-outlined">download</span>
+        </a>
+        
+        <!-- Action 2: Email (60 deg) -->
+        <a href="mailto:basitqayoomchowdhary@gmail.com" title="Email" class="fab-action fab-action-2">
+            <span class="material-symbols-outlined">mail</span>
+        </a>
+        
+        <!-- Action 3: LinkedIn (30 deg) -->
+        <a href="https://linkedin.com/in/bqc" target="_blank" title="LinkedIn" class="fab-action fab-action-3">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+        </a>
+
+        <!-- Action 4: GitHub (0 deg - Straight Left) -->
+        <a href="https://github.com/basitqayoom" target="_blank" title="GitHub" class="fab-action fab-action-4">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.253-.447-1.27.098-2.646 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.376.202 2.394.1 2.646.64.699 1.026 1.591 1.026 2.682 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+        </a>
+
+        <!-- Main FAB Toggle Button -->
+        <button class="fab-main" id="fab-main" title="Quick Actions">
+            <span class="material-symbols-outlined icon-add">add</span>
+        </button>
+    </div>
+
+    <script>
+        // Floating Action Button Toggle Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const fabMain = document.getElementById('fab-main');
+            const fabContainer = document.getElementById('fab-container');
+
+            // Toggle menu open/close on click
+            fabMain.addEventListener('click', (event) => {
+                fabContainer.classList.toggle('active');
+                event.stopPropagation(); // Prevents immediate close from body listener
+            });
+
+            // Close the menu if clicked outside
+            document.addEventListener('click', (event) => {
+                if (fabContainer.classList.contains('active') && !fabContainer.contains(event.target)) {
+                    fabContainer.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

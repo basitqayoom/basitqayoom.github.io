@@ -7,6 +7,7 @@
 import { initReveal } from './reveal.js';
 import { initCounters } from './counters.js';
 import { initMagnetic } from './magnetic.js';
+import { initAnalytics } from './analytics.js';
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const supportsHover = window.matchMedia('(hover: hover)').matches;
@@ -185,6 +186,7 @@ function bootstrap() {
     initReveal();
     initCounters();
     initMagnetic();
+    initAnalytics();
 }
 
 if (document.readyState === 'loading') {

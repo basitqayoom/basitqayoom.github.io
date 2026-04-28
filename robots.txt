@@ -1,0 +1,6 @@
+# https://basitqayoom.github.io
+User-agent: *
+Allow: /
+
+# Surface the sitemap
+Sitemap: https://basitqayoom.github.io/sitemap.xml

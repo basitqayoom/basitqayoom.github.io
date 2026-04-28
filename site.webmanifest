@@ -1,0 +1,20 @@
+{
+    "name": "Basit Qayoom — Software Engineer",
+    "short_name": "Basit Qayoom",
+    "description": "Software Engineer · Frontend platform & architecture. React, TypeScript, Module Federation.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#0B0B0F",
+    "theme_color": "#0B0B0F",
+    "lang": "en",
+    "dir": "ltr",
+    "icons": [
+        {
+            "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23F5A524'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='ui-serif,Georgia,serif' font-weight='600' font-size='18' fill='%230B0B0F'%3EBQ%3C/text%3E%3C/svg%3E",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        }
+    ]
+}
